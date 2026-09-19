@@ -48,7 +48,7 @@ nav.solid{background:rgba(5,5,5,0.98);backdrop-filter:blur(30px);border-bottom:1
 #hero{position:relative;height:100vh;overflow:hidden;display:flex;align-items:center;justify-content:center;padding-bottom:100px}
 #hero-canvas{position:absolute;inset:0;width:100%;height:100%}
 .hero-inner{position:relative;z-index:5;text-align:center;padding:0 24px;max-width:1100px;margin-top:0}
-.hero-tag{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:5px;color:var(--g);text-transform:uppercase;margin-bottom:28px;opacity:0;animation:fadeSlide .8s .3s forwards}
+.hero-tag{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:5px;color:var(--g);text-transform:uppercase;margin-bottom:48px;opacity:0;animation:fadeSlide .8s .3s forwards}
 .hero-h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(80px,14vw,180px);line-height:.82;letter-spacing:-1px;margin-bottom:24px;opacity:0;animation:fadeSlide .9s .5s forwards}
 .hero-h1 .line1{display:block;color:var(--w)}
 .hero-h1 .line2{display:block;color:transparent;-webkit-text-stroke:1px rgba(201,168,76,0.6);transition:.5s}
@@ -407,10 +407,13 @@ footer{background:#000;padding:36px 48px 20px;border-top:1px solid var(--ln)}
 html{scroll-behavior:smooth}
 
 /* Hero title — ultra compressed, massive tracking */
-.hero-h1{letter-spacing:-4px;font-size:clamp(90px,16vw,200px);line-height:.78}
+.hero-h1{letter-spacing:-2px;font-size:clamp(75px,13vw,170px);line-height:.92;margin-top:0}
 
 /* Magnetic hover on buttons */
 .hbtn1,.hbtn2,.nbtn{transition:transform .25s cubic-bezier(.23,1,.32,1),box-shadow .25s,background .25s,border-color .25s}
+
+/* Hero tag spacing fix */
+.hero-tag{display:inline-block;margin-bottom:52px}
 
 /* Section number labels — lusion style */
 .sec-num{position:absolute;top:48px;right:48px;font-family:'Bebas Neue',sans-serif;font-size:120px;color:rgba(255,255,255,0.025);line-height:1;pointer-events:none;letter-spacing:-4px}
