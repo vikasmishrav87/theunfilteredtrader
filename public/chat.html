@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Trading Coach — The Unfiltered Trader</title>
+  <link rel="icon" type="image/jpeg" href="/logo.png">
+  <link rel="stylesheet" href="/css/main.css">
+  <style>
+    .chat-container {
+      max-width: 900px;
+      margin: 0 auto;
+      height: calc(100vh - 200px);
+      min-height: 550px;
+      background: var(--s1);
+      border: 1px solid var(--lng);
+      border-radius: 8px;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      box-shadow: 0 20px 80px rgba(0,0,0,0.8);
+    }
+    .chat-header {
+      padding: 18px 24px;
+      background: linear-gradient(135deg, rgba(201,168,76,0.15), var(--s2));
+      border-bottom: 1px solid var(--lng);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .chat-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      background: rgba(0,0,0,0.3);
+    }
+    .chat-bubble {
+      max-width: 80%;
+      padding: 14px 18px;
+      border-radius: 8px;
+      font-size: 13px;
+      line-height: 1.6;
+      animation: fadeIn 0.3s ease;
+    }
+    @keyframes fadeIn {
+      from { opacity:0; transform:translateY(8px); }
+      to { opacity:1; transform:translateY(0); }
+    }
+    .chat-bubble.bot {
+      align-self: flex-start;
+      background: rgba(201,168,76,0.1);
+      border: 1px solid rgba(201,168,76,0.25);
+      color: var(--w);
+      border-bottom-left-radius: 2px;
+    }
+    .chat-bubble.user {
+      align-self: flex-end;
+      background: linear-gradient(135deg, var(--g), var(--g2));
+      color: #000;
+      font-weight: 600;
+      border-bottom-right-radius: 2px;
+    }
+    .chat-chips {
+      padding: 12px 24px;
+      background: var(--s2);
+      border-top: 1px solid var(--ln);
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      white-space: nowrap;
+    }
+    .chat-chip {
+      padding: 6px 14px;
+      border: 1px solid var(--lng);
+      border-radius: 20px;
+      font-size: 11px;
+      color: var(--g);
+      background: transparent;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .chat-chip:hover {
+      background: rgba(201,168,76,0.15);
+      border-color: var(--g);
+    }
+    .chat-input-area {
+      padding: 16px 24px;
+      background: var(--s2);
+      border-top: 1px solid var(--ln);
+      display: flex;
+      gap: 12px;
+    }
+    .chat-input {
+      flex: 1;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--lng);
+      color: var(--w);
+      padding: 12px 18px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-family: 'Space Grotesk', sans-serif;
+      outline: none;
+    }
+    .chat-input:focus {
+      border-color: var(--g);
+      box-shadow: 0 0 15px rgba(201,168,76,0.2);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- UNIVERSAL NAVIGATION -->
+  <nav>
+    <a href="/" class="nlogo">
+      <img src="/logo.png" alt="The Unfiltered Trader Logo">
+      <span>THE UNFILTERED TRADER</span>
+    </a>
+    <ul class="nlinks" id="navLinks">
+      <li><a href="/">Home</a></li>
+      <li><a href="/about">About</a></li>
+      <li><a href="/vip">VIP Free</a></li>
+      <li><a href="/brokers">Brokers</a></li>
+      <li><a href="/syllabus">Syllabus</a></li>
+      <li><a href="/premium">Premium Plans</a></li>
+      <li><a href="/prop-firms">Prop Firms</a></li>
+      <li><a href="/reviews">Reviews</a></li>
+      <li><a href="/chat" class="active">AI Chat</a></li>
+      <li><a href="/feedback">1% Better</a></li>
+      <li><a href="/contact">Contact</a></li>
+    </ul>
+    <div class="nright">
+      <a href="https://whatsapp.com/channel/0029VbCxmiMG8l5IOlc7nO0N" target="_blank" class="nbtn">📱 WhatsApp</a>
+      <a href="https://t.me/+FNIBb-pEK0g4MGI1" target="_blank" class="nbtn fill">Join Telegram</a>
+      <button class="nav-toggle" onclick="document.getElementById('navLinks').classList.toggle('open')">☰</button>
+    </div>
+  </nav>
+
+  <!-- PAGE HEADER -->
+  <header class="page-header" style="padding-bottom:30px;">
+    <div class="ct">
+      <span class="ey">24/7 Market Intelligence</span>
+      <h1 class="st">AI TRADING COACH<br><span style="color:var(--g)">TRAINED ON SMART MONEY</span></h1>
+      <div class="dv"></div>
+      <p class="sb">
+        Ask anything about ICT/SMC principles, institutional Fibonacci levels, partner brokers, VIP verification, or prop firm evaluations.
+      </p>
+    </div>
+  </header>
+
+  <!-- CHAT INTERFACE -->
+  <section style="padding: 20px 0 60px;">
+    <div class="ct">
+      <div class="chat-container">
+        <!-- Header -->
+        <div class="chat-header">
+          <div style="display:flex; align-items:center; gap:12px;">
+            <img src="/logo.png" alt="Bot Avatar" style="width:36px; height:36px; border-radius:50%; border:1px solid var(--g);">
+            <div>
+              <div style="font-family:'Bebas Neue',sans-serif; font-size:18px; color:var(--g); letter-spacing:1px;">THE UNFILTERED AI COACH</div>
+              <div style="font-size:10px; color:var(--green); display:flex; align-items:center; gap:4px;">
+                <span style="width:6px; height:6px; border-radius:50%; background:var(--green); display:inline-block;"></span> Online & Ready
+              </div>
+            </div>
+          </div>
+          <a href="https://t.me/+FNIBb-pEK0g4MGI1" target="_blank" class="btn btn-outline" style="font-size:9px; padding:6px 12px;">
+            Speak to Vikas Directly
+          </a>
+        </div>
+
+        <!-- Messages -->
+        <div class="chat-body" id="chatBody">
+          <div class="chat-bubble bot">
+            👋 Welcome to <strong>The Unfiltered Trader AI Coach</strong>! I am trained on Vikas Mishra's institutional trading philosophy, Smart Money Concepts (SMC), and proprietary Fibonacci architecture.
+            <br><br>
+            Ask me anything about market mechanics, how to get free VIP access, which broker is best for your capital, or how to pass prop firm challenges.
+          </div>
+        </div>
+
+        <!-- Chips -->
+        <div class="chat-chips">
+          <button class="chat-chip" onclick="quickAsk('How do I join the VIP group for free?')">🎯 Free VIP Access</button>
+          <button class="chat-chip" onclick="quickAsk('What is Smart Money Concepts (SMC)?')">🏛️ What is SMC?</button>
+          <button class="chat-chip" onclick="quickAsk('How does Vikas use Fibonacci architecture?')">📐 Fibonacci Strategy</button>
+          <button class="chat-chip" onclick="quickAsk('Best broker for Indian F&O?')">🇮🇳 Indian Brokers</button>
+          <button class="chat-chip" onclick="quickAsk('How do I trade Crypto without P2P risk in India?')">₿ Crypto Safety</button>
+          <button class="chat-chip" onclick="quickAsk('How to pass a Prop Firm challenge?')">💰 Prop Firm Rules</button>
+        </div>
+
+        <!-- Input Area -->
+        <form class="chat-input-area" onsubmit="handleChatSubmit(event)">
+          <input class="chat-input" id="chatInput" placeholder="Ask any trading question..." autocomplete="off">
+          <button type="submit" class="btn btn-gold" style="padding:12px 24px;">Send ➤</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- UNIVERSAL FOOTER -->
+  <footer>
+    <div class="ct">
+      <div class="ft-grid">
+        <div>
+          <a href="/" class="ft-logo">
+            <img src="/logo.png" alt="The Unfiltered Trader Logo">
+            <span>THE UNFILTERED TRADER</span>
+          </a>
+          <p class="ft-desc">
+            Global community of smart & intelligent traders. Mastering Smart Money Concepts, institutional Fibonacci levels, and psychological discipline.
+          </p>
+        </div>
+        <div class="ft-col">
+          <h4>Navigation</h4>
+          <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/about">About Story</a></li>
+            <li><a href="/vip">VIP Free Gateway</a></li>
+            <li><a href="/brokers">Partner Brokers</a></li>
+            <li><a href="/syllabus">Curriculum Syllabus</a></li>
+          </ul>
+        </div>
+        <div class="ft-col">
+          <h4>Premium Desks</h4>
+          <ul>
+            <li><a href="/indian-market">Indian Market Paid Desk</a></li>
+            <li><a href="/fibonacci-group">Fibonacci Trading Group</a></li>
+            <li><a href="/courses">Masterclass Courses</a></li>
+            <li><a href="/mentorship">1-on-1 Mentorship</a></li>
+            <li><a href="/prop-firms">Prop Firm Community</a></li>
+          </ul>
+        </div>
+        <div class="ft-col">
+          <h4>Connect</h4>
+          <ul>
+            <li><a href="https://t.me/+FNIBb-pEK0g4MGI1" target="_blank">Telegram VIP</a></li>
+            <li><a href="https://whatsapp.com/channel/0029VbCxmiMG8l5IOlc7nO0N" target="_blank">WhatsApp Channel</a></li>
+            <li><a href="https://www.youtube.com/@theunfilteredtrader" target="_blank">YouTube Channel</a></li>
+            <li><a href="/chat">AI Trading Coach</a></li>
+            <li><a href="/feedback">1% Better Feedback</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="ft-bottom">
+        <div>© 2026 The Unfiltered Trader. All rights reserved.</div>
+        <div>DM: <a href="https://t.me/+FNIBb-pEK0g4MGI1" target="_blank" style="color:var(--g)">@YourstrulyVikasMishra</a></div>
+      </div>
+      <div class="ft-disc">
+        Disclaimer: Trading foreign exchange, cryptocurrencies, indices, and equities involves significant risk of loss and is not suitable for every investor. Past performance is no guarantee of future results. All content provided by The Unfiltered Trader is strictly for educational purposes.
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const knowledge = [
+      {
+        triggers: ['free', 'vip', 'join', 'how to join'],
+        answer: "To join our <strong>VIP Group for FREE</strong>:<br>1. Open an account with any partner broker on our <a href='/brokers' style='color:var(--g)'>Brokers page</a> (Dhan, Angel One, Delta Exchange, XM, Vantage, etc.).<br>2. Deposit minimum $100 (or ₹8,000 for Indian brokers). This remains 100% your trading capital.<br>3. Send your deposit screenshot and Client ID to <strong>@YourstrulyVikasMishra</strong> on Telegram.<br>You'll receive instant, permanent VIP access!"
+      },
+      {
+        triggers: ['smc', 'smart money', 'concept', 'ict'],
+        answer: "<strong>Smart Money Concepts (SMC)</strong> is the study of how institutional players (central banks, hedge funds, market makers) manipulate price. Instead of buying at trendline touches or retail support/resistance, we identify <em>liquidity sweeps</em>, <em>Fair Value Gaps (FVGs)</em>, and <em>Order Blocks</em> to enter where smart money is executing."
+      },
+      {
+        triggers: ['fib', 'fibonacci', 'golden', 'ratio'],
+        answer: "Vikas Mishra's proprietary <strong>Fibonacci Architecture</strong> moves far beyond retail 0.5 and 0.618 levels. We utilize institutional cluster zones (0.705 golden pocket, 1.272/1.618 extension exhaustion) and the <em>Fibonacci Time Spiral</em> to predict exact market reversal candles before the move occurs with an 80-95% verified win-rate."
+      },
+      {
+        triggers: ['indian', 'dhan', 'angel', 'nifty', 'option'],
+        answer: "For Indian Markets (Nifty, Bank Nifty, and Equities), we recommend <strong>Dhan</strong> (referral code: <code>OESVY25380</code>) for pure TradingView chart execution and <strong>Angel One</strong> (referral code: <code>VX07092HDV</code>) for deep option chain open interest data. Both qualify you for free VIP access!"
+      },
+      {
+        triggers: ['crypto', 'p2p', 'delta', 'mexc', 'bitcoin'],
+        answer: "To avoid bank account freezes from P2P fraud in India, we strongly recommend <strong>Delta Exchange</strong> (code: <code>theunfilteredtrader</code>) which is FIU-India compliant and supports direct INR UPI deposits/withdrawals. For global altcoin trading with no KYC, use <strong>MEXC</strong> (code: <code>2uptt</code>) or <strong>Weex</strong> (code: <code>5pyzd</code>)."
+      },
+      {
+        triggers: ['prop', 'funded', 'funding pips', 'challenge'],
+        answer: "Our community trades with <strong>FundedNext</strong> (profit splits up to 95%) and <strong>Funding Pips</strong> (evaluation from just $27). Use exclusive community coupon code <strong style='color:var(--g)'>FP200</strong> on Funding Pips for 25% off. Check our <a href='/prop-firms' style='color:var(--g)'>Prop Firms page</a> for the 3 rules to passing challenges!"
+      },
+      {
+        triggers: ['mentorship', 'course', 'paid', 'price', 'fee'],
+        answer: "We offer several specialized premium programs:<br>• <strong>Indian Market Paid Group</strong>: ₹5,000/mo<br>• <strong>Fibonacci Trading Group</strong>: ₹7,000/mo (Most Popular)<br>• <strong>Indian Market Recorded Course</strong>: ₹10,000 one-time<br>• <strong>Fib Live Course In-Depth</strong>: ₹17,000 one-time<br>• <strong>1-on-1 Mentorship with Vikas</strong>: ₹30,000/mo (3 students/mo)<br>See full details on our <a href='/premium' style='color:var(--g)'>Premium Plans</a> page."
+      }
+    ];
+
+    function addMessage(text, isUser = false) {
+      const body = document.getElementById('chatBody');
+      const bubble = document.createElement('div');
+      bubble.className = `chat-bubble ${isUser ? 'user' : 'bot'}`;
+      bubble.innerHTML = text;
+      body.appendChild(bubble);
+      body.scrollTop = body.scrollHeight;
+    }
+
+    function quickAsk(q) {
+      document.getElementById('chatInput').value = q;
+      handleChatSubmit(new Event('submit'));
+    }
+
+    function handleChatSubmit(e) {
+      e.preventDefault();
+      const input = document.getElementById('chatInput');
+      const text = input.value.trim();
+      if (!text) return;
+
+      addMessage(text, true);
+      input.value = '';
+
+      // Generate response
+      setTimeout(() => {
+        const lower = text.toLowerCase();
+        let match = knowledge.find(k => k.triggers.some(t => lower.includes(t)));
+        if (match) {
+          addMessage(match.answer);
+        } else {
+          addMessage(`That's a great question about the markets. At The Unfiltered Trader, we evaluate all setups through multi-timeframe liquidity, institutional Fibonacci architecture, and strict 1:3+ risk-reward.<br><br>For specific setup reviews or direct feedback from Vikas Mishra, reach out to our official VIP desk on Telegram: <a href='https://t.me/+FNIBb-pEK0g4MGI1' target='_blank' style='color:var(--g)'>@YourstrulyVikasMishra</a>.`);
+        }
+      }, 500);
+    }
+  </script>
+</body>
+</html>

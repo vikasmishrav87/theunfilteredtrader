@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Make Us 1% Better — The Unfiltered Trader</title>
+  <link rel="icon" type="image/jpeg" href="/logo.png">
+  <link rel="stylesheet" href="/css/main.css">
+  <style>
+    .ri {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--ln);
+      color: var(--w);
+      padding: 12px 16px;
+      border-radius: 4px;
+      font-size: 13px;
+      font-family: 'Space Grotesk', sans-serif;
+      outline: none;
+      transition: 0.3s;
+    }
+    .ri:focus {
+      border-color: var(--g);
+      background: rgba(201,168,76,0.05);
+    }
+    .lbtn {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--ln);
+      color: var(--w);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 11px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: 0.2s;
+    }
+    .lbtn:hover {
+      border-color: var(--red);
+      color: var(--red);
+    }
+    .lbtn.liked {
+      border-color: var(--red);
+      color: var(--red);
+      background: rgba(255,68,68,0.1);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- UNIVERSAL NAVIGATION -->
+  <nav>
+    <a href="/" class="nlogo">
+      <img src="/logo.png" alt="The Unfiltered Trader Logo">
+      <span>THE UNFILTERED TRADER</span>
+    </a>
+    <ul class="nlinks" id="navLinks">
+      <li><a href="/">Home</a></li>
+      <li><a href="/about">About</a></li>
+      <li><a href="/vip">VIP Free</a></li>
+      <li><a href="/brokers">Brokers</a></li>
+      <li><a href="/syllabus">Syllabus</a></li>
+      <li><a href="/premium">Premium Plans</a></li>
+      <li><a href="/prop-firms">Prop Firms</a></li>
+      <li><a href="/reviews">Reviews</a></li>
+      <li><a href="/chat">AI Chat</a></li>
+      <li><a href="/feedback" class="active">1% Better</a></li>
+      <li><a href="/contact">Contact</a></li>
+    </ul>
+    <div class="nright">
+      <a href="https://whatsapp.com/channel/0029VbCxmiMG8l5IOlc7nO0N" target="_blank" class="nbtn">📱 WhatsApp</a>
+      <a href="https://t.me/+FNIBb-pEK0g4MGI1" target="_blank" class="nbtn fill">Join Telegram</a>
+      <button class="nav-toggle" onclick="document.getElementById('navLinks').classList.toggle('open')">☰</button>
+    </div>
+  </nav>
+
+  <!-- PAGE HEADER -->
+  <header class="page-header">
+    <div class="ct">
+      <span class="ey">Relentless Daily Kaizen</span>
+      <h1 class="st">MAKE US 1% BETTER<br><span style="color:var(--g)">COMMUNITY SUGGESTIONS</span></h1>
+      <div class="dv"></div>
+      <p class="sb">
+        We refuse to be complacent. Tell us one thing that is missing, one feature we should build, or one tweak that would make your trading journey here 1% more impactful. Vikas Mishra personally reads every submission.
+      </p>
+    </div>
+  </header>
+
+  <!-- FEEDBACK SECTION -->
+  <section>
+    <div class="ct">
+      <div class="grid-2" style="gap:50px; align-items:flex-start;">
+        <!-- SUBMISSION FORM -->
+        <div class="card gold-glow" style="padding:36px;">
+          <span class="ey">Submit Your Idea</span>
+          <h2 class="st" style="font-size:32px; margin-bottom:8px;">YOUR VOICE MATTERS</h2>
+          <p style="font-size:12px; color:var(--off); line-height:1.7; margin-bottom:20px;">
+            Be brutally honest. What would elevate your trading education, community interaction, or analytical tools?
+          </p>
+
+          <form id="fbForm" onsubmit="handleFbSubmit(event)" style="display:flex; flex-direction:column; gap:16px;">
+            <input class="ri" id="fbName" placeholder="Your Name (or remain Anonymous)">
+            <textarea class="ri" id="fbTxt" rows="5" placeholder="Write your suggestion — what would make The Unfiltered Trader 1% better today? *" required></textarea>
+            <button type="submit" class="btn btn-gold btn-block" style="padding:15px;">Post Suggestion →</button>
+          </form>
+
+          <div id="fbSuccess" style="display:none; text-align:center; padding:14px; background:rgba(0,255,136,0.1); border:1px solid rgba(0,255,136,0.3); border-radius:4px; margin-top:16px; color:var(--green); font-size:12px; font-weight:600;">
+            ✅ Posted! Vikas personally reads every community suggestion.
+          </div>
+        </div>
+
+        <!-- SUGGESTIONS LIST -->
+        <div>
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+            <h3 style="font-family:'Bebas Neue',sans-serif; font-size:26px; color:var(--g);">COMMUNITY PROPOSALS</h3>
+            <span class="badge badge-gold" id="fbCount">4 Community Ideas</span>
+          </div>
+
+          <div id="fbList" style="display:flex; flex-direction:column; gap:16px;">
+            <!-- Item 1 -->
+            <div class="card" style="padding:20px;">
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+                <div style="display:flex; align-items:center; gap:10px;">
+                  <div style="width:32px; height:32px; border-radius:50%; background:rgba(201,168,76,0.15); color:var(--g); display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:700;">TR</div>
+                  <div>
+                    <div style="font-weight:700; font-size:13px;">Tushar Rajput</div>
+                    <div style="font-size:9px; color:var(--off);">6d ago</div>
+                  </div>
+                </div>
+                <button class="lbtn" onclick="toggleLike(this, 47)">❤️ 47</button>
+              </div>
+              <p style="font-size:12px; color:var(--off); line-height:1.7;">
+                Monthly live chart review session where community members submit setups and AV reviews them live. Seeing mistakes corrected in real time is worth more than 10 theory sessions.
+              </p>
+            </div>
+
+            <!-- Item 2 -->
+            <div class="card" style="padding:20px;">
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+                <div style="display:flex; align-items:center; gap:10px;">
+                  <div style="width:32px; height:32px; border-radius:50%; background:rgba(201,168,76,0.15); color:var(--g); display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:700;">DK</div>
+                  <div>
+                    <div style="font-weight:700; font-size:13px;">DK Jasani</div>
+                    <div style="font-size:9px; color:var(--off);">4d ago</div>
+                  </div>
+                </div>
+                <button class="lbtn" onclick="toggleLike(this, 31)">❤️ 31</button>
+              </div>
+              <p style="font-size:12px; color:var(--off); line-height:1.7;">
+                Weekly Sunday Forex preview session — 30 minutes reviewing key levels for Gold, EURUSD and GBPUSD for the week ahead. Would help members plan entries before the week starts.
+              </p>
+            </div>
+
+            <!-- Item 3 -->
+            <div class="card" style="padding:20px;">
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+                <div style="display:flex; align-items:center; gap:10px;">
+                  <div style="width:32px; height:32px; border-radius:50%; background:rgba(201,168,76,0.15); color:var(--g); display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:700;">AK</div>
+                  <div>
+                    <div style="font-weight:700; font-size:13px;">Akash Suman</div>
+                    <div style="font-size:9px; color:var(--off);">2d ago</div>
+                  </div>
+                </div>
+                <button class="lbtn" onclick="toggleLike(this, 24)">❤️ 24</button>
+              </div>
+              <p style="font-size:12px; color:var(--off); line-height:1.7;">
+                Add 60-second ICT concept reels on Instagram — bite-sized explanations that beginners can watch daily to build their foundation before jumping into live trading.
+              </p>
+            </div>
+
+            <!-- Item 4 -->
+            <div class="card" style="padding:20px;">
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+                <div style="display:flex; align-items:center; gap:10px;">
+                  <div style="width:32px; height:32px; border-radius:50%; background:rgba(201,168,76,0.15); color:var(--g); display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:700;">SR</div>
+                  <div>
+                    <div style="font-weight:700; font-size:13px;">Sangram Singh</div>
+                    <div style="font-size:9px; color:var(--off);">1w ago</div>
+                  </div>
+                </div>
+                <button class="lbtn" onclick="toggleLike(this, 19)">❤️ 19</button>
+              </div>
+              <p style="font-size:12px; color:var(--off); line-height:1.7;">
+                Dedicated altcoin watchlist every week — even 3-5 coins with entry zones and invalidation levels would give community members a massive edge before the moves happen.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- UNIVERSAL FOOTER -->
+  <footer>
+    <div class="ct">
+      <div class="ft-grid">
+        <div>
+          <a href="/" class="ft-logo">
+            <img src="/logo.png" alt="The Unfiltered Trader Logo">
+            <span>THE UNFILTERED TRADER</span>
+          </a>
+          <p class="ft-desc">
+            Global community of smart & intelligent traders. Mastering Smart Money Concepts, institutional Fibonacci levels, and psychological discipline.
+          </p>
+        </div>
+        <div class="ft-col">
+          <h4>Navigation</h4>
+          <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/about">About Story</a></li>
+            <li><a href="/vip">VIP Free Gateway</a></li>
+            <li><a href="/brokers">Partner Brokers</a></li>
+            <li><a href="/syllabus">Curriculum Syllabus</a></li>
+          </ul>
+        </div>
+        <div class="ft-col">
+          <h4>Premium Desks</h4>
+          <ul>
+            <li><a href="/indian-market">Indian Market Paid Desk</a></li>
+            <li><a href="/fibonacci-group">Fibonacci Trading Group</a></li>
+            <li><a href="/courses">Masterclass Courses</a></li>
+            <li><a href="/mentorship">1-on-1 Mentorship</a></li>
+            <li><a href="/prop-firms">Prop Firm Community</a></li>
+          </ul>
+        </div>
+        <div class="ft-col">
+          <h4>Connect</h4>
+          <ul>
+            <li><a href="https://t.me/+FNIBb-pEK0g4MGI1" target="_blank">Telegram VIP</a></li>
+            <li><a href="https://whatsapp.com/channel/0029VbCxmiMG8l5IOlc7nO0N" target="_blank">WhatsApp Channel</a></li>
+            <li><a href="https://www.youtube.com/@theunfilteredtrader" target="_blank">YouTube Channel</a></li>
+            <li><a href="/chat">AI Trading Coach</a></li>
+            <li><a href="/feedback">1% Better Feedback</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="ft-bottom">
+        <div>© 2026 The Unfiltered Trader. All rights reserved.</div>
+        <div>DM: <a href="https://t.me/+FNIBb-pEK0g4MGI1" target="_blank" style="color:var(--g)">@YourstrulyVikasMishra</a></div>
+      </div>
+      <div class="ft-disc">
+        Disclaimer: Trading foreign exchange, cryptocurrencies, indices, and equities involves significant risk of loss and is not suitable for every investor. Past performance is no guarantee of future results. All content provided by The Unfiltered Trader is strictly for educational purposes.
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    let ideaCount = 4;
+    function toggleLike(btn, count) {
+      if (btn.classList.contains('liked')) {
+        btn.classList.remove('liked');
+        btn.innerHTML = `❤️ ${count}`;
+      } else {
+        btn.classList.add('liked');
+        btn.innerHTML = `❤️ ${count + 1}`;
+      }
+    }
+
+    function handleFbSubmit(e) {
+      e.preventDefault();
+      const name = document.getElementById('fbName').value.trim() || 'Anonymous Trader';
+      const text = document.getElementById('fbTxt').value.trim();
+
+      const list = document.getElementById('fbList');
+      const item = document.createElement('div');
+      item.className = 'card';
+      item.style.padding = '20px';
+      item.innerHTML = `
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+          <div style="display:flex; align-items:center; gap:10px;">
+            <div style="width:32px; height:32px; border-radius:50%; background:rgba(201,168,76,0.15); color:var(--g); display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:700;">${name.slice(0,2).toUpperCase()}</div>
+            <div>
+              <div style="font-weight:700; font-size:13px;">${name}</div>
+              <div style="font-size:9px; color:var(--green);">Just now</div>
+            </div>
+          </div>
+          <button class="lbtn liked" onclick="toggleLike(this, 1)">❤️ 1</button>
+        </div>
+        <p style="font-size:12px; color:var(--off); line-height:1.7;">${text}</p>
+      `;
+      list.prepend(item);
+
+      ideaCount++;
+      document.getElementById('fbCount').innerText = `${ideaCount} Community Ideas`;
+      document.getElementById('fbSuccess').style.display = 'block';
+      document.getElementById('fbForm').reset();
+    }
+  </script>
+</body>
+</html>

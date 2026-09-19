@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trader Reviews & Wall of Fame — The Unfiltered Trader</title>
+  <link rel="icon" type="image/jpeg" href="/logo.png">
+  <link rel="stylesheet" href="/css/main.css">
+  <style>
+    .star-btn {
+      background: none;
+      border: none;
+      font-size: 24px;
+      color: #333;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+    .star-btn.active {
+      color: var(--g);
+    }
+    .ri {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--ln);
+      color: var(--w);
+      padding: 12px 16px;
+      border-radius: 4px;
+      font-size: 13px;
+      font-family: 'Space Grotesk', sans-serif;
+      outline: none;
+      transition: 0.3s;
+    }
+    .ri:focus {
+      border-color: var(--g);
+      background: rgba(201,168,76,0.05);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- UNIVERSAL NAVIGATION -->
+  <nav>
+    <a href="/" class="nlogo">
+      <img src="/logo.png" alt="The Unfiltered Trader Logo">
+      <span>THE UNFILTERED TRADER</span>
+    </a>
+    <ul class="nlinks" id="navLinks">
+      <li><a href="/">Home</a></li>
+      <li><a href="/about">About</a></li>
+      <li><a href="/vip">VIP Free</a></li>
+      <li><a href="/brokers">Brokers</a></li>
+      <li><a href="/syllabus">Syllabus</a></li>
+      <li><a href="/premium">Premium Plans</a></li>
+      <li><a href="/prop-firms">Prop Firms</a></li>
+      <li><a href="/reviews" class="active">Reviews</a></li>
+      <li><a href="/chat">AI Chat</a></li>
+      <li><a href="/feedback">1% Better</a></li>
+      <li><a href="/contact">Contact</a></li>
+    </ul>
+    <div class="nright">
+      <a href="https://whatsapp.com/channel/0029VbCxmiMG8l5IOlc7nO0N" target="_blank" class="nbtn">📱 WhatsApp</a>
+      <a href="https://t.me/+FNIBb-pEK0g4MGI1" target="_blank" class="nbtn fill">Join Telegram</a>
+      <button class="nav-toggle" onclick="document.getElementById('navLinks').classList.toggle('open')">☰</button>
+    </div>
+  </nav>
+
+  <!-- PAGE HEADER -->
+  <header class="page-header">
+    <div class="ct">
+      <span class="ey">The Unfiltered Wall of Fame</span>
+      <h1 class="st">1,000+ TRADERS<br><span style="color:var(--g)">REAL VOICES. REAL RESULTS.</span></h1>
+      <div class="dv"></div>
+      <p class="sb">
+        No paid shills. No rented luxury lifestyle videos. Just authentic, unscripted testimonials and verified trade statements from real traders who rebuilt their accounts with The Unfiltered Trader.
+      </p>
+    </div>
+  </header>
+
+  <!-- REVIEWS GRID -->
+  <section>
+    <div class="ct">
+      <div class="grid-3" id="reviewsGrid">
+        <!-- Review 1 -->
+        <div class="card gold-glow">
+          <div style="display:flex; gap:12px; align-items:center; margin-bottom:12px;">
+            <div style="width:40px; height:40px; border-radius:50%; background:rgba(108,59,255,.15); color:#9575CD; display:flex; align-items:center; justify-content:center; font-weight:700;">YC</div>
+            <div>
+              <div style="font-weight:700; font-size:14px;">Yoshil Chaudhary</div>
+              <div style="font-size:10px; color:var(--off);">Fib Batch — Crypto</div>
+            </div>
+          </div>
+          <div style="color:var(--g); font-size:14px; margin-bottom:10px;">★★★★★</div>
+          <p style="font-size:12px; color:var(--off); line-height:1.7; margin-bottom:14px;">
+            "I spent two years getting chopped out of crypto trades — entering at the wrong levels every single time. Then the Fib batch happened. AV showed me how to pin the exact top and bottom of any market. The first big trade I held after joining was a 20,000-point Bitcoin move. I wouldn't have held it for 200 points before. The mindset shift is real."
+          </p>
+          <span class="badge badge-gold">20,000 Point BTC Trade Held</span>
+        </div>
+
+        <!-- Review 2 -->
+        <div class="card gold-glow">
+          <div style="display:flex; gap:12px; align-items:center; margin-bottom:12px;">
+            <div style="width:40px; height:40px; border-radius:50%; background:rgba(201,168,76,.15); color:var(--g); display:flex; align-items:center; justify-content:center; font-weight:700;">LS</div>
+            <div>
+              <div style="font-weight:700; font-size:14px;">Lalit Saraswat</div>
+              <div style="font-size:10px; color:var(--off);">VIP Community Member</div>
+            </div>
+          </div>
+          <div style="color:var(--g); font-size:14px; margin-bottom:10px;">★★★★★</div>
+          <p style="font-size:12px; color:var(--off); line-height:1.7; margin-bottom:14px;">
+            "I'd been in the markets for 3 years with nothing to show except stress and losses — nearly 2 lakhs down across everything. After joining The Unfiltered Trader's VIP community, something changed. Within a single month, I turned every single rupee of that loss around and came out in profit. I even took a profit withdrawal — first time I'd ever done that."
+          </p>
+          <span class="badge badge-green">₹2 Lakh Lifetime Loss Converted to Profit</span>
+        </div>
+
+        <!-- Review 3 -->
+        <div class="card gold-glow">
+          <div style="display:flex; gap:12px; align-items:center; margin-bottom:12px;">
+            <div style="width:40px; height:40px; border-radius:50%; background:rgba(229,57,53,.15); color:var(--red); display:flex; align-items:center; justify-content:center; font-weight:700;">UM</div>
+            <div>
+              <div style="font-weight:700; font-size:14px;">Ujjwal Mishra</div>
+              <div style="font-size:10px; color:var(--off);">Forex & Gold VIP</div>
+            </div>
+          </div>
+          <div style="color:var(--g); font-size:14px; margin-bottom:10px;">★★★★★</div>
+          <p style="font-size:12px; color:var(--off); line-height:1.7; margin-bottom:14px;">
+            "Gold was a nightmare for me. I'd identify the direction right, then get stopped out on noise before the actual move. AV's Fib zones changed that completely. The precision is something you have to see to believe — price comes to these levels and bounces like it's scripted. My account grew 40% in 6 weeks."
+          </p>
+          <span class="badge badge-gold">+40% Account Growth in 6 Weeks</span>
+        </div>
+
+        <!-- Review 4 -->
+        <div class="card">
+          <div style="display:flex; gap:12px; align-items:center; margin-bottom:12px;">
+            <div style="width:40px; height:40px; border-radius:50%; background:rgba(0,200,83,.1); color:#00E676; display:flex; align-items:center; justify-content:center; font-weight:700;">SS</div>
+            <div>
+              <div style="font-weight:700; font-size:14px;">Sagar Saini</div>
+              <div style="font-size:10px; color:var(--off);">Crypto — ETH</div>
+            </div>
+          </div>
+          <div style="color:var(--g); font-size:14px; margin-bottom:10px;">★★★★★</div>
+          <p style="font-size:12px; color:var(--off); line-height:1.7; margin-bottom:14px;">
+            "I was completely written off by the bear market. Everyone said ETH was going to zero and I believed them. AV called the exact reversal zone using his Fibonacci levels — I entered ETH and rode it for 1,000 profit points in what everyone called a dead market. Bear markets are where you make real money."
+          </p>
+          <span class="badge badge-green">1000 ETH Points in Bear Market</span>
+        </div>
+
+        <!-- Review 5 -->
+        <div class="card">
+          <div style="display:flex; gap:12px; align-items:center; margin-bottom:12px;">
+            <div style="width:40px; height:40px; border-radius:50%; background:rgba(0,200,83,.1); color:#69F0AE; display:flex; align-items:center; justify-content:center; font-weight:700;">HK</div>
+            <div>
+              <div style="font-weight:700; font-size:14px;">Hemant Kumar</div>
+              <div style="font-size:10px; color:var(--off);">Forex — Silver</div>
+            </div>
+          </div>
+          <div style="color:var(--g); font-size:14px; margin-bottom:10px;">★★★★★</div>
+          <p style="font-size:12px; color:var(--off); line-height:1.7; margin-bottom:14px;">
+            "Caught a 400-pip Silver move from AV's exact level last month. My trading partner thought I'd reverse engineered it after the fact — that's how precise it was. I've stopped relying on indicators entirely. Just Fib levels and market structure. The noise in my head has gone quiet."
+          </p>
+          <span class="badge badge-gold">400-Pip Silver Move Captured</span>
+        </div>
+
+        <!-- Review 6 -->
+        <div class="card">
+          <div style="display:flex; gap:12px; align-items:center; margin-bottom:12px;">
+            <div style="width:40px; height:40px; border-radius:50%; background:rgba(229,57,53,.1); color:#EF9A9A; display:flex; align-items:center; justify-content:center; font-weight:700;">TR</div>
+            <div>
+              <div style="font-weight:700; font-size:14px;">Tushar Rajput</div>
+              <div style="font-size:10px; color:var(--off);">Indian Markets — Options</div>
+            </div>
+          </div>
+          <div style="color:var(--g); font-size:14px; margin-bottom:10px;">★★★★★</div>
+          <p style="font-size:12px; color:var(--off); line-height:1.7; margin-bottom:14px;">
+            "Bank Nifty options had destroyed my confidence. Expiry weeks were terrifying. After learning AV's key levels, I started treating expiry like a chess match — I know where the stops are sitting. My last 6 expiry weeks have all been profitable. That's never happened before in 3 years of trading options."
+          </p>
+          <span class="badge badge-green">6 Consecutive Profitable Expiry Weeks</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SHARE YOUR STORY FORM -->
+  <section style="background:var(--s1); border-top:1px solid var(--ln);">
+    <div class="ct" style="max-width:760px;">
+      <div style="text-align:center; margin-bottom:40px;">
+        <span class="ey">Your Voice</span>
+        <h2 class="st">SHARE YOUR TRADING STORY</h2>
+        <div class="dv"></div>
+        <p class="sb">Traded with The Unfiltered Trader? Tell the community your experience.</p>
+      </div>
+
+      <div class="card gold-glow" style="padding:36px;">
+        <form id="reviewForm" onsubmit="handleReviewSubmit(event)" style="display:flex; flex-direction:column; gap:16px;">
+          <div class="grid-2">
+            <input class="ri" id="rName" placeholder="Your Name *" required>
+            <input class="ri" id="rMarket" placeholder="Market Traded (e.g. Crypto, Gold, Nifty F&O) *" required>
+          </div>
+
+          <div>
+            <label style="font-size:11px; color:var(--g); letter-spacing:1px; text-transform:uppercase; font-weight:700; display:block; margin-bottom:6px;">Your Rating</label>
+            <div id="starContainer" style="display:flex; gap:8px;">
+              <button type="button" class="star-btn active" onclick="setStars(1)">★</button>
+              <button type="button" class="star-btn active" onclick="setStars(2)">★</button>
+              <button type="button" class="star-btn active" onclick="setStars(3)">★</button>
+              <button type="button" class="star-btn active" onclick="setStars(4)">★</button>
+              <button type="button" class="star-btn active" onclick="setStars(5)">★</button>
+            </div>
+          </div>
+
+          <textarea class="ri" id="rStory" rows="4" placeholder="Your trading journey — what mistakes were corrected? What trades did you capture? *" required></textarea>
+          <input class="ri" id="rHighlight" placeholder="Your biggest highlight (e.g. +40% in 6 weeks, ₹1.5L loss recovered) *" required>
+
+          <button type="submit" class="btn btn-gold btn-block" style="padding:16px; font-size:12px;">
+            Post Review To Community Wall →
+          </button>
+        </form>
+
+        <div id="reviewSuccess" style="display:none; text-align:center; padding:16px; background:rgba(0,255,136,0.1); border:1px solid rgba(0,255,136,0.3); border-radius:4px; margin-top:16px; color:var(--green); font-size:13px; font-weight:600;">
+          ✅ Thank you! Your review has been posted to The Unfiltered Trader community wall.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- UNIVERSAL FOOTER -->
+  <footer>
+    <div class="ct">
+      <div class="ft-grid">
+        <div>
+          <a href="/" class="ft-logo">
+            <img src="/logo.png" alt="The Unfiltered Trader Logo">
+            <span>THE UNFILTERED TRADER</span>
+          </a>
+          <p class="ft-desc">
+            Global community of smart & intelligent traders. Mastering Smart Money Concepts, institutional Fibonacci levels, and psychological discipline.
+          </p>
+        </div>
+        <div class="ft-col">
+          <h4>Navigation</h4>
+          <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/about">About Story</a></li>
+            <li><a href="/vip">VIP Free Gateway</a></li>
+            <li><a href="/brokers">Partner Brokers</a></li>
+            <li><a href="/syllabus">Curriculum Syllabus</a></li>
+          </ul>
+        </div>
+        <div class="ft-col">
+          <h4>Premium Desks</h4>
+          <ul>
+            <li><a href="/indian-market">Indian Market Paid Desk</a></li>
+            <li><a href="/fibonacci-group">Fibonacci Trading Group</a></li>
+            <li><a href="/courses">Masterclass Courses</a></li>
+            <li><a href="/mentorship">1-on-1 Mentorship</a></li>
+            <li><a href="/prop-firms">Prop Firm Community</a></li>
+          </ul>
+        </div>
+        <div class="ft-col">
+          <h4>Connect</h4>
+          <ul>
+            <li><a href="https://t.me/+FNIBb-pEK0g4MGI1" target="_blank">Telegram VIP</a></li>
+            <li><a href="https://whatsapp.com/channel/0029VbCxmiMG8l5IOlc7nO0N" target="_blank">WhatsApp Channel</a></li>
+            <li><a href="https://www.youtube.com/@theunfilteredtrader" target="_blank">YouTube Channel</a></li>
+            <li><a href="/chat">AI Trading Coach</a></li>
+            <li><a href="/feedback">1% Better Feedback</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="ft-bottom">
+        <div>© 2026 The Unfiltered Trader. All rights reserved.</div>
+        <div>DM: <a href="https://t.me/+FNIBb-pEK0g4MGI1" target="_blank" style="color:var(--g)">@YourstrulyVikasMishra</a></div>
+      </div>
+      <div class="ft-disc">
+        Disclaimer: Trading foreign exchange, cryptocurrencies, indices, and equities involves significant risk of loss and is not suitable for every investor. Past performance is no guarantee of future results. All content provided by The Unfiltered Trader is strictly for educational purposes.
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    let currentRating = 5;
+    function setStars(count) {
+      currentRating = count;
+      const stars = document.querySelectorAll('.star-btn');
+      stars.forEach((s, idx) => {
+        if (idx < count) {
+          s.classList.add('active');
+        } else {
+          s.classList.remove('active');
+        }
+      });
+    }
+
+    function handleReviewSubmit(e) {
+      e.preventDefault();
+      const name = document.getElementById('rName').value;
+      const market = document.getElementById('rMarket').value;
+      const story = document.getElementById('rStory').value;
+      const hl = document.getElementById('rHighlight').value;
+
+      const grid = document.getElementById('reviewsGrid');
+      const card = document.createElement('div');
+      card.className = 'card gold-glow';
+      card.innerHTML = `
+        <div style="display:flex; gap:12px; align-items:center; margin-bottom:12px;">
+          <div style="width:40px; height:40px; border-radius:50%; background:rgba(201,168,76,.15); color:var(--g); display:flex; align-items:center; justify-content:center; font-weight:700;">${name.slice(0,2).toUpperCase()}</div>
+          <div>
+            <div style="font-weight:700; font-size:14px;">${name}</div>
+            <div style="font-size:10px; color:var(--off);">${market}</div>
+          </div>
+        </div>
+        <div style="color:var(--g); font-size:14px; margin-bottom:10px;">${'★'.repeat(currentRating)}</div>
+        <p style="font-size:12px; color:var(--off); line-height:1.7; margin-bottom:14px;">"${story}"</p>
+        <span class="badge badge-gold">${hl}</span>
+      `;
+      grid.prepend(card);
+
+      document.getElementById('reviewSuccess').style.display = 'block';
+      document.getElementById('reviewForm').reset();
+      setStars(5);
+    }
+  </script>
+</body>
+</html>

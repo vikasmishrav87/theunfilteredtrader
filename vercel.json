@@ -1,0 +1,22 @@
+{
+  "cleanUrls": true,
+  "rewrites": [
+    { "source": "/about", "destination": "/about.html" },
+    { "source": "/vip", "destination": "/vip.html" },
+    { "source": "/brokers", "destination": "/brokers.html" },
+    { "source": "/syllabus", "destination": "/syllabus.html" },
+    { "source": "/premium", "destination": "/premium.html" },
+    { "source": "/paid", "destination": "/premium.html" },
+    { "source": "/indian-market", "destination": "/indian-market.html" },
+    { "source": "/fibonacci-group", "destination": "/fibonacci-group.html" },
+    { "source": "/courses", "destination": "/courses.html" },
+    { "source": "/mentorship", "destination": "/mentorship.html" },
+    { "source": "/prop-firms", "destination": "/prop-firms.html" },
+    { "source": "/reviews", "destination": "/reviews.html" },
+    { "source": "/chat", "destination": "/chat.html" },
+    { "source": "/ai-chat", "destination": "/chat.html" },
+    { "source": "/feedback", "destination": "/feedback.html" },
+    { "source": "/suggestions", "destination": "/feedback.html" },
+    { "source": "/contact", "destination": "/contact.html" }
+  ]
+}

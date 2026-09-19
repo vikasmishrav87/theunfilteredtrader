@@ -7,23 +7,47 @@ const __dirname = path.dirname(__filename)
 
 const app = express()
 
+// Serve static assets from public directory
 app.use(express.static(path.join(__dirname, '..', 'public')))
 
-// Home route - Serves The Unfiltered Trader
+// Home route
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '..', 'public', 'index.html'))
 })
 
-app.get('/about', function (req, res) {
-  res.sendFile(path.join(__dirname, '..', 'components', 'about.htm'))
+// Dedicated page routes
+const dedicatedPages = [
+  'about',
+  'vip',
+  'brokers',
+  'syllabus',
+  'premium',
+  'indian-market',
+  'fibonacci-group',
+  'courses',
+  'mentorship',
+  'prop-firms',
+  'reviews',
+  'chat',
+  'feedback',
+  'contact'
+]
+
+dedicatedPages.forEach(page => {
+  app.get(`/${page}`, (req, res) => {
+    res.sendFile(path.join(__dirname, '..', 'public', `${page}.html`))
+  })
 })
 
-// Example API endpoint - JSON
-app.get('/api-data', (req, res) => {
-  res.json({
-    message: 'Here is some sample API data',
-    items: ['apple', 'banana', 'cherry'],
-  })
+// Aliases for user convenience
+app.get('/paid', (req, res) => {
+  res.sendFile(path.join(__dirname, '..', 'public', 'premium.html'))
+})
+app.get('/ai-chat', (req, res) => {
+  res.sendFile(path.join(__dirname, '..', 'public', 'chat.html'))
+})
+app.get('/suggestions', (req, res) => {
+  res.sendFile(path.join(__dirname, '..', 'public', 'feedback.html'))
 })
 
 // Health check
