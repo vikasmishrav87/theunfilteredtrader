@@ -9,7 +9,7 @@ const app = express()
 
 app.use(express.static(path.join(__dirname, '..', 'public')))
 
-// Home route - Serves TradingwithAV
+// Home route - Serves The Unfiltered Trader
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '..', 'public', 'index.html'))
 })
