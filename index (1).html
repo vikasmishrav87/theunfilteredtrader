@@ -40,7 +40,7 @@ nav.solid{background:rgba(5,5,5,0.98);backdrop-filter:blur(30px);border-bottom:1
 .nlinks a{color:var(--off);text-decoration:none;font-size:11px;letter-spacing:2px;text-transform:uppercase;transition:.3s;font-weight:500}
 .nlinks a:hover{color:var(--w)}
 .nright{display:flex;gap:10px}
-.nbtn{border:1px solid var(--lng);color:var(--g);padding:8px 20px;border-radius:2px;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;text-decoration:none;transition:.3s;background:transparent;cursor:pointer;font-family:'Space Grotesk',sans-serif}
+.nbtn{display:inline-flex;align-items:center;justify-content:center;gap:6px;border:1px solid var(--lng);color:var(--g);padding:8px 20px;border-radius:2px;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;text-decoration:none;transition:.3s;background:transparent;cursor:pointer;font-family:'Space Grotesk',sans-serif;white-space:nowrap;line-height:1.4}
 .nbtn:hover{background:var(--g);color:#000}
 .nbtn.fill{background:var(--g);color:#000;border-color:var(--g)}
 .nbtn.fill:hover{background:var(--g2)}
@@ -155,9 +155,9 @@ section{padding:120px 48px;position:relative}
 
 /* ====== VIP ====== */
 .vip{background:var(--bg)}
-.vip-head{border:1px solid var(--lng);border-radius:4px;background:linear-gradient(135deg,rgba(201,168,76,0.05),transparent);padding:48px;text-align:center;margin-bottom:56px;position:relative;overflow:hidden}
+.vip-head{border:1px solid var(--lng);border-radius:4px;background:linear-gradient(135deg,rgba(201,168,76,0.05),transparent);padding:48px 24px;text-align:center;margin-bottom:56px;position:relative;overflow:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center}
 .vip-head::before{content:'FREE';position:absolute;font-family:'Bebas Neue',sans-serif;font-size:300px;color:rgba(201,168,76,0.025);top:50%;left:50%;transform:translate(-50%,-50%);letter-spacing:40px;pointer-events:none;white-space:nowrap}
-.vip-head h2{font-family:'Bebas Neue',sans-serif;font-size:clamp(26px,4vw,52px);color:var(--g);margin-bottom:12px;line-height:1}
+.vip-head h2{font-family:'Bebas Neue',sans-serif;font-size:clamp(26px,4vw,52px);color:var(--g);margin-bottom:16px;line-height:1.1}
 .vip-head p{font-size:13px;color:var(--off);line-height:1.9;max-width:700px;margin:0 auto}
 .vip-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
 .vc{border:1px solid var(--ln);border-radius:3px;padding:28px 20px;background:var(--s1);transition:.5s;position:relative;overflow:hidden;cursor:default}
@@ -223,8 +223,8 @@ section{padding:120px 48px;position:relative}
 
 /* ====== BROKERS ====== */
 .brokers{background:var(--s1)}
-.free-head{border:1px solid var(--lng);border-radius:4px;background:linear-gradient(135deg,rgba(201,168,76,0.06),transparent);padding:36px;text-align:center;margin-bottom:44px}
-.free-head h2{font-family:'Bebas Neue',sans-serif;font-size:clamp(24px,4vw,46px);color:var(--g);margin-bottom:8px}
+.free-head{border:1px solid var(--lng);border-radius:4px;background:linear-gradient(135deg,rgba(201,168,76,0.06),transparent);padding:36px 20px;text-align:center;margin-bottom:44px;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.free-head h2{font-family:'Bebas Neue',sans-serif;font-size:clamp(24px,4vw,46px);color:var(--g);margin-bottom:14px;line-height:1.1}
 .free-head p{font-size:12px;color:var(--off);line-height:1.9;max-width:700px;margin:0 auto}
 .bk-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
 .bk-card{border:1px solid var(--ln);border-radius:3px;padding:24px;background:var(--s2);transition:.5s;position:relative;overflow:hidden}
@@ -613,8 +613,8 @@ nav::after{content:'';position:absolute;bottom:0;left:5%;right:5%;height:1px;bac
   <div class="ct">
     <div class="vip-head rv">
       <h2>JOIN ANY BROKER WITH OUR CODE.<br>GET ALL 5 BENEFITS — FREE.</h2>
-      <div style="margin-top:14px;"><a href="/vip" class="nbtn fill" style="padding:10px 24px; font-size:11px;">Open Dedicated VIP Gateway Page →</a></div>
-      <p>Open your trading account through our referral links. Deposit $100. DM <strong style="color:var(--g)">@YourstrulyVikasMishra</strong> on Telegram with your screenshot. Zero cost. Maximum value. Only for those who are genuinely serious.</p>
+      <p style="margin-bottom:18px;">Open your trading account through our referral links. Deposit $100. DM <strong style="color:var(--g)">@YourstrulyVikasMishra</strong> on Telegram with your screenshot. Zero cost. Maximum value. Only for those who are genuinely serious.</p>
+      <div><a href="/vip" class="nbtn fill" style="padding:12px 28px; font-size:11px;">Open Dedicated VIP Gateway Page →</a></div>
     </div>
     <div class="vip-grid">
       <div class="vc rv d1"><div class="vnum">01</div><div class="vic">🎪</div><div class="vt">Workshop Session Access</div><div class="vd">Exclusive access to every workshop we conduct — First Come First Serve. Live, interactive, high-value sessions.</div><span class="vv">FCFS Basis</span></div>
@@ -631,8 +631,8 @@ nav::after{content:'';position:absolute;bottom:0;left:5%;right:5%;height:1px;bac
   <div class="ct">
     <div class="free-head rv">
       <h2>FREE GATEWAY TO ALL VIP GROUPS</h2>
-      <div style="margin-top:14px;"><a href="/brokers" class="nbtn fill" style="padding:10px 24px; font-size:11px;">View Complete Broker Directory & Comparison →</a></div>
-      <p>Open any broker below via our referral → Deposit $100 → DM <strong style="color:var(--g)">@YourstrulyVikasMishra</strong> with screenshot → Instant VIP access.</p>
+      <p style="margin-bottom:18px;">Open any broker below via our referral → Deposit $100 → DM <strong style="color:var(--g)">@YourstrulyVikasMishra</strong> with screenshot → Instant VIP access.</p>
+      <div><a href="/brokers" class="nbtn fill" style="padding:12px 28px; font-size:11px;">View Complete Broker Directory & Comparison →</a></div>
     </div>
     <div class="bk-grid">
       <div class="bk-card rv d1">
@@ -718,7 +718,7 @@ nav::after{content:'';position:absolute;bottom:0;left:5%;right:5%;height:1px;bac
   <div class="ct">
     <span class="ey" style="display:flex;justify-content:center">Learning Curriculum</span>
     <h2 class="st" style="font-size:clamp(44px,6vw,70px);text-align:center">MENTORSHIP<br>SYLLABUS</h2>
-    <div style="text-align:center; margin-bottom:24px;"><a href="/syllabus" class="nbtn fill" style="padding:10px 24px; font-size:11px;">View Full 13-Module Syllabus Page →</a></div>
+    <div style="text-align:center; margin:16px 0 28px;"><a href="/syllabus" class="nbtn fill" style="padding:12px 28px; font-size:11px;">View Full 13-Module Syllabus Page →</a></div>
     
     <div class="syl-btns">
       <button class="syl-btn active" data-syl="main">
@@ -804,9 +804,9 @@ nav::after{content:'';position:absolute;bottom:0;left:5%;right:5%;height:1px;bac
     <div class="rv" style="text-align:center;max-width:660px;margin:0 auto">
       <span class="ey" style="display:flex;justify-content:center">Community Voice</span>
       <h2 class="st">1000+ TRADERS<br>EDUCATED</h2>
-      <div style="margin-top:14px;"><a href="/reviews" class="nbtn fill" style="padding:10px 24px; font-size:11px;">View All Reviews & Share Your Story →</a></div>
       <div class="dv" style="margin:14px auto"></div>
-      <p class="sb" style="margin:0 auto">Real stories. Real results. No scripts, no paid reviews — just pure honest truth from traders who traded with Traders Hub.</p>
+      <p class="sb" style="margin:0 auto 20px">Real stories. Real results. No scripts, no paid reviews — just pure honest truth from traders who traded with Traders Hub.</p>
+      <div><a href="/reviews" class="nbtn fill" style="padding:12px 28px; font-size:11px;">View All Reviews & Share Your Story →</a></div>
     </div>
     <div class="rv-grid" id="rvg">
       <div class="rvc"><div class="rv-head"><div class="rv-av" style="background:rgba(108,59,255,.12);color:#9575CD">YC</div><div><div class="rv-name">Yoshil Chaudhary</div><div class="rv-mkt">Fib Batch — Crypto</div></div></div><div class="rv-stars">★★★★★</div><div class="rv-txt">"I spent two years getting chopped out of crypto trades — entering at the wrong levels every single time. Then the Fib batch happened. AV showed me how to pin the exact top and bottom of any market. The first big trade I held after joining was a 20,000-point Bitcoin move. I wouldn't have held it for 200 points before. The mindset shift is real. The methodology is real. Nothing else I've tried comes close."</div><span class="rv-hl">20,000 Point BTC Trade Held</span></div>
@@ -865,9 +865,9 @@ nav::after{content:'';position:absolute;bottom:0;left:5%;right:5%;height:1px;bac
     <div class="rv" style="text-align:center;max-width:660px;margin:0 auto 48px">
       <span class="ey" style="display:flex;justify-content:center">Community Feedback</span>
       <h2 class="st" style="font-size:clamp(36px,5vw,70px)">MAKE US 1% MORE<br>BETTER TODAY</h2>
-      <div style="margin-top:14px;"><a href="/feedback" class="nbtn fill" style="padding:10px 24px; font-size:11px;">Open Dedicated 1% Better Portal →</a></div>
       <div class="dv" style="margin:14px auto"></div>
-      <p class="sb" style="margin:0 auto">Tell us one thing we should improve. Every suggestion is public. Vikas personally reads every single one.</p>
+      <p class="sb" style="margin:0 auto 20px">Tell us one thing we should improve. Every suggestion is public. Vikas personally reads every single one.</p>
+      <div><a href="/feedback" class="nbtn fill" style="padding:12px 28px; font-size:11px;">Open Dedicated 1% Better Portal →</a></div>
     </div>
     <div class="one-grid">
       <div class="rv d1">
@@ -903,9 +903,9 @@ nav::after{content:'';position:absolute;bottom:0;left:5%;right:5%;height:1px;bac
       <div class="rv">
         <span class="ey">AI Trading Assistant</span>
         <h2 class="st" style="font-size:clamp(44px,6vw,74px)">ASK ANYTHING<br><span style="color:var(--g)">ABOUT TRADING</span></h2>
-        <div style="margin-top:14px;"><a href="/chat" class="nbtn fill" style="padding:10px 24px; font-size:11px;">Open Full Screen AI Coach Page →</a></div>
         <div class="dv"></div>
-        <p class="sb">Powered by GPT-4 — trained on Traders Hub's philosophy. Ask about ICT, Fibonacci, brokers, VIP access, or any market question.</p>
+        <p class="sb" style="margin-bottom:20px;">Powered by GPT-4 — trained on Traders Hub's philosophy. Ask about ICT, Fibonacci, brokers, VIP access, or any market question.</p>
+        <div><a href="/chat" class="nbtn fill" style="padding:12px 28px; font-size:11px;">Open Full Screen AI Coach Page →</a></div>
         <div style="margin-top:24px;display:flex;flex-direction:column;gap:9px">
           <div style="display:flex;align-items:center;gap:10px;padding:12px;border:1px solid var(--ln);border-radius:3px;background:var(--s2)"><span style="font-size:16px">🤖</span><div><div style="font-size:11px;font-weight:700">GPT-4 Powered</div><div style="font-size:9px;color:var(--off)">Real-time trading intelligence</div></div></div>
           <div style="display:flex;align-items:center;gap:10px;padding:12px;border:1px solid var(--ln);border-radius:3px;background:var(--s2)"><span style="font-size:16px">📧</span><div><div style="font-size:11px;font-weight:700">Email Support</div><div style="font-size:9px;color:var(--off)"><a href="mailto:tradershub@gmail.com" style="color:var(--g)">tradershub@gmail.com</a></div></div></div>
