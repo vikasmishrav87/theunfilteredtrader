@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Member Dashboard — Traders Hub</title>
+<link rel="icon" type="image/jpeg" href="/logo.png">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Bebas+Neue&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/main.css">
+<style>
+  body {
+    background: #050505;
+    color: #F0EFE9;
+    font-family: 'Space Grotesk', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+  }
+  .dash-container {
+    max-width: 900px;
+    width: 90%;
+    margin: 40px auto 80px;
+    flex: 1;
+  }
+  .profile-header {
+    background: linear-gradient(135deg, rgba(201, 168, 76, 0.08), rgba(15, 15, 15, 0.95));
+    border: 1px solid rgba(201, 168, 76, 0.3);
+    border-radius: 8px;
+    padding: 36px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+    flex-wrap: wrap;
+  }
+  .profile-info {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+  .profile-avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 2px solid #C9A84C;
+    object-fit: cover;
+    background: #141414;
+  }
+  .profile-details h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 34px;
+    color: #F0EFE9;
+    margin: 0 0 6px 0;
+    letter-spacing: 1px;
+  }
+  .profile-email {
+    font-size: 13px;
+    color: #999;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .badge-verified {
+    background: rgba(0, 255, 136, 0.12);
+    border: 1px solid rgba(0, 255, 136, 0.4);
+    color: #00FF88;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 10px;
+    font-weight: 700;
+  }
+  .badge-role {
+    background: rgba(201, 168, 76, 0.15);
+    border: 1px solid rgba(201, 168, 76, 0.4);
+    color: #C9A84C;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+  .grid-2 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    margin-top: 32px;
+  }
+  .dash-card {
+    background: #0A0A0A;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 6px;
+    padding: 24px;
+    transition: all 0.3s ease;
+  }
+  .dash-card:hover {
+    border-color: rgba(201, 168, 76, 0.3);
+    transform: translateY(-2px);
+  }
+  .dash-card h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    color: #C9A84C;
+    margin: 0 0 12px 0;
+    letter-spacing: 1px;
+  }
+  .meta-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    font-size: 12px;
+  }
+  .meta-row:last-child {
+    border-bottom: none;
+  }
+  .meta-label {
+    color: #777;
+  }
+  .meta-val {
+    color: #EEE;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .logout-btn {
+    background: transparent;
+    border: 1px solid rgba(255, 68, 68, 0.4);
+    color: #FF6666;
+    padding: 10px 22px;
+    border-radius: 3px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.3s;
+    font-family: 'Space Grotesk', sans-serif;
+    text-transform: uppercase;
+  }
+  .logout-btn:hover {
+    background: #FF4444;
+    color: #000;
+  }
+</style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav">
+    <a href="/" class="nav-brand">
+      <img src="/logo.png" alt="Traders Hub Logo" class="brand-img">
+      <span class="brand-title">TRADERS HUB</span>
+    </a>
+    <div class="nav-right">
+      <a href="/" class="nbtn">Home</a>
+      <a href="/vip" class="nbtn">VIP Gateway</a>
+      <a href="/brokers" class="nbtn">Brokers</a>
+      <a href="/auth/logout" class="logout-btn">Log Out</a>
+    </div>
+  </nav>
+
+  <main class="dash-container">
+    <!-- Profile Banner -->
+    <div class="profile-header">
+      <div class="profile-info">
+        <img id="userAvatar" src="/logo.png" alt="Profile" class="profile-avatar">
+        <div class="profile-details">
+          <div style="display:flex; align-items:center; gap:10px;">
+            <h1 id="userName">Loading...</h1>
+            <span id="userRole" class="badge-role">USER</span>
+          </div>
+          <div class="profile-email">
+            <span id="userEmail">Loading...</span>
+            <span class="badge-verified">✓ Google Verified</span>
+          </div>
+        </div>
+      </div>
+      <div>
+        <a href="/auth/logout" class="logout-btn">Sign Out</a>
+      </div>
+    </div>
+
+    <!-- Quick Stats & Account Meta -->
+    <div class="grid-2">
+      <div class="dash-card">
+        <h3>Account Security & Identity</h3>
+        <div class="meta-row">
+          <span class="meta-label">Identity Provider</span>
+          <span class="meta-val">Google OAuth 2.0</span>
+        </div>
+        <div class="meta-row">
+          <span class="meta-label">Session Security</span>
+          <span class="meta-val">HttpOnly + SameSite=Lax</span>
+        </div>
+        <div class="meta-row">
+          <span class="meta-label">Account Created</span>
+          <span class="meta-val" id="userCreated">—</span>
+        </div>
+        <div class="meta-row">
+          <span class="meta-label">Last Active</span>
+          <span class="meta-val" id="userLastLogin">—</span>
+        </div>
+      </div>
+
+      <div class="dash-card">
+        <h3>Verified Member Resources</h3>
+        <p style="font-size:12px; color:#888; line-height:1.6; margin-bottom:16px;">
+          As an authenticated member, you have direct verified access to Traders Hub VIP resources, verified Telegram channels, and Fibonacci trading models.
+        </p>
+        <div style="display:flex; gap:10px; flex-wrap:wrap;">
+          <a href="/vip" class="nbtn fill" style="padding:10px 18px; font-size:11px;">VIP Gateway Desk →</a>
+          <a href="https://t.me/+FNIBb-pEK0g4MGI1" target="_blank" class="nbtn" style="padding:10px 18px; font-size:11px;">✈️ Open Telegram</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Edit Profile Card -->
+    <div class="dash-card" style="margin-top:24px;">
+      <h3>Update Profile Settings</h3>
+      <p style="font-size:12px; color:#888; margin-bottom:16px;">Modify your displayed community display name. Roles and email are cryptographically anchored to your Google identity and cannot be altered.</p>
+      <form id="profileForm" style="display:flex; gap:12px; max-width:480px;">
+        <input type="text" id="nameInput" placeholder="Display Name" style="flex:1; padding:10px 14px; background:#141414; border:1px solid #333; color:#FFF; border-radius:3px; font-family:'Space Grotesk',sans-serif; font-size:13px;">
+        <button type="submit" class="nbtn fill" style="padding:10px 20px; font-size:11px; cursor:pointer;">Save Changes</button>
+      </form>
+      <div id="saveMsg" style="margin-top:10px; font-size:12px; display:none;"></div>
+    </div>
+  </main>
+
+  <footer style="text-align:center; padding: 24px; color: #444; font-size: 11px;">
+    © 2026 Traders Hub. Server-Managed Session & Google OAuth 2.0 Security Layer.
+  </footer>
+
+  <script>
+    // Fetch user profile from secure /api/me endpoint
+    async function loadUserProfile() {
+      try {
+        const res = await fetch('/api/me');
+        if (!res.ok) {
+          // If unauthorized, redirect to signin
+          window.location.href = '/signin';
+          return;
+        }
+
+        const data = await res.json();
+        if (data.authenticated && data.user) {
+          const u = data.user;
+          document.getElementById('userName').textContent = u.name || 'Member';
+          document.getElementById('userEmail').textContent = u.email;
+          document.getElementById('userRole').textContent = u.role.toUpperCase();
+          document.getElementById('nameInput').value = u.name || '';
+
+          if (u.picture) {
+            document.getElementById('userAvatar').src = u.picture;
+          }
+
+          if (u.created_at) {
+            document.getElementById('userCreated').textContent = new Date(u.created_at).toLocaleDateString();
+          }
+
+          if (u.last_login_at) {
+            document.getElementById('userLastLogin').textContent = new Date(u.last_login_at).toLocaleString();
+          }
+        }
+      } catch (err) {
+        console.error('Failed to load profile:', err);
+      }
+    }
+
+    // Handle Profile Update Form
+    document.getElementById('profileForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const newName = document.getElementById('nameInput').value.trim();
+      const msgBox = document.getElementById('saveMsg');
+
+      try {
+        const res = await fetch('/api/user/profile', {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ name: newName })
+        });
+
+        const data = await res.json();
+        if (res.ok && data.success) {
+          msgBox.textContent = '✓ Profile updated successfully!';
+          msgBox.style.color = '#00FF88';
+          msgBox.style.display = 'block';
+          document.getElementById('userName').textContent = data.user.name;
+        } else {
+          msgBox.textContent = data.error || 'Failed to update profile';
+          msgBox.style.color = '#FF6666';
+          msgBox.style.display = 'block';
+        }
+      } catch (err) {
+        msgBox.textContent = 'Server communication error';
+        msgBox.style.color = '#FF6666';
+        msgBox.style.display = 'block';
+      }
+    });
+
+    loadUserProfile();
+  </script>
+</body>
+</html>

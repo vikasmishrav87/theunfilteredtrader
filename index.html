@@ -523,6 +523,7 @@ nav::after{content:'';position:absolute;bottom:0;left:5%;right:5%;height:1px;bac
     <li><a href="/contact">Contact</a></li>
   </ul>
   <div class="nright">
+    <a href="/signin" class="nbtn" style="border-color:var(--g);color:var(--g)">Sign In</a>
     <a href="https://whatsapp.com/channel/0029VbCxmiMG8l5IOlc7nO0N" target="_blank" class="nbtn">📱 WhatsApp</a>
     <a href="https://t.me/+FNIBb-pEK0g4MGI1" target="_blank" class="nbtn fill">Join Telegram</a>
   </div>
@@ -1200,6 +1201,17 @@ function setStar(n){
 }
 
 // ── REVIEWS (localStorage) ──
+
+function escapeHtml(str) {
+  if (str === null || str === undefined) return '';
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+}
+
 function mkRvCard(r){
   const colors=['#9575CD','#00E676','#EF5350','#FBC005','#00B4D8','#C9A84C','#FF8A65'];
   const c=colors[Math.abs(r.name.charCodeAt(0))%colors.length];
@@ -1207,7 +1219,7 @@ function mkRvCard(r){
   const stars='★'.repeat(r.stars||5)+'☆'.repeat(5-(r.stars||5));
   const d=document.createElement('div');
   d.className='rvc';
-  d.innerHTML=`<div class="rv-head"><div class="rv-av" style="background:${c}20;color:${c}">${init}</div><div><div class="rv-name">${r.name}</div><div class="rv-mkt">${r.mkt||'Community Member'}</div></div></div><div class="rv-stars">${stars}</div><div class="rv-txt">"${r.txt}"</div>${r.hl?`<span class="rv-hl">${r.hl}</span>`:''}`;
+  d.innerHTML=`<div class="rv-head"><div class="rv-av" style="background:${c}20;color:${c}">${escapeHtml(init)}</div><div><div class="rv-name">${escapeHtml(r.name)}</div><div class="rv-mkt">${escapeHtml(r.mkt||'Community Member')}</div></div></div><div class="rv-stars">${escapeHtml(stars)}</div><div class="rv-txt">"${escapeHtml(r.txt)}"</div>${r.hl?`<span class="rv-hl">${escapeHtml(r.hl)}</span>`:''}`;
   return d;
 }
 function loadRv(){
@@ -1238,7 +1250,7 @@ function loadFb(){
   saved.forEach(f=>{
     const init=f.name.split(' ').map(w=>w[0]||'').join('').toUpperCase().slice(0,2)||'AN';
     const d=document.createElement('div');d.className='post-item';
-    d.innerHTML=`<div class="post-meta"><div class="post-av">${init}</div><div class="post-n">${f.name}</div><div class="post-t">just now</div></div><div class="post-txt">${f.txt}</div><div><button class="lbtn" onclick="like(this)">❤️ 0</button></div>`;
+    d.innerHTML=`<div class="post-meta"><div class="post-av">${escapeHtml(init)}</div><div class="post-n">${escapeHtml(f.name)}</div><div class="post-t">just now</div></div><div class="post-txt">${escapeHtml(f.txt)}</div><div><button class="lbtn" onclick="like(this)">❤️ 0</button></div>`;
     posts.prepend(d);
   });
 }
@@ -1262,7 +1274,8 @@ function like(btn){
 }
 
 // ── CHATBOT (OpenRouter) ──
-const KEY="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";
+// Security Hardened: Client API Key removed. Requests routed securely through /api/ai-chat
+const KEY="";
 const SYS=`You are the official AI assistant for Traders Hub — a premium trading education community run by Vikas Mishra with 5+ years of live market experience.
 
 Key facts:
@@ -1562,7 +1575,8 @@ document.querySelectorAll('.pc').forEach(card=>{
 });
 
 // ── AI CHATBOT (FLOATING BUTTON) ──
-const OR_KEY='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';
+// Security Hardened: Client API Key removed.
+const OR_KEY='';
 const AI_SYS=`You are the official AI assistant for Traders Hub — India's Top 1% Trading Community built by Vikas Mishra, full-time prop-firm-funded trader.
 
 Key facts:

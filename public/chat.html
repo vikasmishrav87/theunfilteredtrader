@@ -288,7 +288,11 @@
       const body = document.getElementById('chatBody');
       const bubble = document.createElement('div');
       bubble.className = `chat-bubble ${isUser ? 'user' : 'bot'}`;
-      bubble.innerHTML = text;
+      if (isUser) {
+        bubble.textContent = text;
+      } else {
+        bubble.innerHTML = text;
+      }
       body.appendChild(bubble);
       body.scrollTop = body.scrollHeight;
     }

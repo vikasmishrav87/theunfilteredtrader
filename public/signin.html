@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Sign In — Traders Hub</title>
+<link rel="icon" type="image/jpeg" href="/logo.png">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Bebas+Neue&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/main.css">
+<!-- Official Google Identity Services SDK -->
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+<style>
+  body {
+    background: #050505;
+    color: #F0EFE9;
+    font-family: 'Space Grotesk', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin: 0;
+  }
+  .signin-container {
+    max-width: 460px;
+    width: 90%;
+    margin: 80px auto;
+    background: #0A0A0A;
+    border: 1px solid rgba(201, 168, 76, 0.25);
+    border-radius: 8px;
+    padding: 40px 32px;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8), 0 0 40px rgba(201, 168, 76, 0.05);
+    position: relative;
+    overflow: hidden;
+  }
+  .signin-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #C9A84C, transparent);
+  }
+  .signin-logo {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    border: 2px solid #C9A84C;
+    margin-bottom: 20px;
+    object-fit: cover;
+  }
+  .signin-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 38px;
+    letter-spacing: 2px;
+    color: #C9A84C;
+    margin: 0 0 8px 0;
+    line-height: 1;
+  }
+  .signin-sub {
+    font-size: 13px;
+    color: #777;
+    margin-bottom: 32px;
+    line-height: 1.6;
+  }
+  .google-auth-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    width: 100%;
+    padding: 14px 20px;
+    background: #FFFFFF;
+    color: #1F1F1F;
+    border: none;
+    border-radius: 4px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  }
+  .google-auth-btn:hover {
+    background: #F1F1F1;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 255, 255, 0.2);
+  }
+  .google-icon {
+    width: 20px;
+    height: 20px;
+  }
+  .divider {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin: 24px 0;
+    color: #444;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+  }
+  .divider::before, .divider::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+  .divider span {
+    padding: 0 10px;
+  }
+  .security-badges {
+    margin-top: 32px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    font-size: 11px;
+    color: #666;
+    text-align: left;
+  }
+  .sec-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .sec-item span.icon {
+    color: #C9A84C;
+    font-size: 14px;
+  }
+  .alert-error {
+    background: rgba(255, 68, 68, 0.12);
+    border: 1px solid rgba(255, 68, 68, 0.4);
+    color: #FF6666;
+    padding: 12px;
+    border-radius: 4px;
+    font-size: 12px;
+    margin-bottom: 20px;
+    display: none;
+  }
+  .alert-success {
+    background: rgba(0, 255, 136, 0.1);
+    border: 1px solid rgba(0, 255, 136, 0.3);
+    color: #00FF88;
+    padding: 12px;
+    border-radius: 4px;
+    font-size: 12px;
+    margin-bottom: 20px;
+    display: none;
+  }
+</style>
+</head>
+<body>
+
+  <!-- Top Navigation -->
+  <nav class="nav">
+    <a href="/" class="nav-brand">
+      <img src="/logo.png" alt="Traders Hub Logo" class="brand-img">
+      <span class="brand-title">TRADERS HUB</span>
+    </a>
+    <div class="nav-right">
+      <a href="/" class="nbtn">← Back to Site</a>
+    </div>
+  </nav>
+
+  <!-- Sign In Card -->
+  <div class="signin-container">
+    <img src="/logo.png" alt="Traders Hub" class="signin-logo">
+    <h1 class="signin-title">MEMBER SIGN IN</h1>
+    <p class="signin-sub">Securely sign in with your Google account to access your verified profile, VIP resources, and community desks.</p>
+
+    <!-- Error & Success Alert Boxes -->
+    <div id="errorBox" class="alert-error"></div>
+    <div id="successBox" class="alert-success"></div>
+
+    <!-- Primary Server-Side OAuth 2.0 Authorization Code Flow -->
+    <a href="/auth/google" class="google-auth-btn" id="googleOAuthLink">
+      <svg class="google-icon" viewBox="0 0 24 24">
+        <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+        <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+        <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+        <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+      </svg>
+      Continue with Google
+    </a>
+
+    <!-- Alternative Google One-Tap / Button container -->
+    <div class="divider"><span>OR</span></div>
+    <div id="g_id_onload"
+         data-client_id="809966007540-2m6110vp2p7s085rlq12o4cql11128d4.apps.googleusercontent.com"
+         data-callback="handleCredentialResponse"
+         data-auto_prompt="false">
+    </div>
+    <div class="g_id_signin"
+         data-type="standard"
+         data-size="large"
+         data-theme="filled_black"
+         data-text="sign_in_with"
+         data-shape="rectangular"
+         data-logo_alignment="left"
+         data-width="396">
+    </div>
+
+    <!-- Security Guarantee Badges -->
+    <div class="security-badges">
+      <div class="sec-item"><span class="icon">🛡️</span><span>Official Google OAuth 2.0 Server-Side Verification</span></div>
+      <div class="sec-item"><span class="icon">🔒</span><span>Zero Client-Side Token Storage (Strict HttpOnly Cookies)</span></div>
+      <div class="sec-item"><span class="icon">⚡</span><span>256-Bit Cryptographic Session Protection</span></div>
+    </div>
+  </div>
+
+  <footer style="text-align:center; padding: 24px; color: #444; font-size: 11px;">
+    © 2026 Traders Hub. All Rights Reserved. Pure Price Action & Fibonacci Mastery.
+  </footer>
+
+  <script>
+    // Check URL parameters for feedback or errors
+    const params = new URLSearchParams(window.location.search);
+    const errorBox = document.getElementById('errorBox');
+    const successBox = document.getElementById('successBox');
+
+    if (params.get('logged_out')) {
+      successBox.textContent = 'You have been securely logged out.';
+      successBox.style.display = 'block';
+    }
+
+    if (params.get('error')) {
+      const err = params.get('error');
+      let msg = 'Authentication failed. Please try again.';
+      if (err === 'csrf_validation_failed') msg = 'Security verification failed: State token mismatch.';
+      else if (err === 'email_not_verified') msg = 'Google account must have a verified email address.';
+      else if (err === 'invalid_request') msg = 'Invalid authentication request.';
+      errorBox.textContent = msg;
+      errorBox.style.display = 'block';
+    }
+
+    // Google Identity Services (One-Tap / GSI) Client Callback
+    async function handleCredentialResponse(response) {
+      if (!response || !response.credential) {
+        errorBox.textContent = 'No authentication credential received from Google.';
+        errorBox.style.display = 'block';
+        return;
+      }
+
+      try {
+        errorBox.style.display = 'none';
+        successBox.textContent = 'Verifying with Traders Hub server...';
+        successBox.style.display = 'block';
+
+        // POST ID token to backend for cryptographic signature verification
+        const res = await fetch('/api/auth/google/verify', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ credential: response.credential })
+        });
+
+        const data = await res.json();
+        if (res.ok && data.success) {
+          window.location.href = '/dashboard';
+        } else {
+          successBox.style.display = 'none';
+          errorBox.textContent = data.error || 'Server token verification failed.';
+          errorBox.style.display = 'block';
+        }
+      } catch (err) {
+        successBox.style.display = 'none';
+        errorBox.textContent = 'Network or server error during sign-in.';
+        errorBox.style.display = 'block';
+      }
+    }
+  </script>
+</body>
+</html>
