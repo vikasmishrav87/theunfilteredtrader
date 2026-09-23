@@ -12,9 +12,9 @@
     }
   ],
   "rewrites": [
-    { "source": "/auth/(.*)", "destination": "/src/index.ts" },
-    { "source": "/api/(.*)", "destination": "/src/index.ts" },
-    { "source": "/dashboard", "destination": "/src/index.ts" },
+    { "source": "/auth/(.*)", "destination": "/api/index" },
+    { "source": "/api/(.*)", "destination": "/api/index" },
+    { "source": "/dashboard", "destination": "/api/index" },
     { "source": "/signin", "destination": "/signin.html" },
     { "source": "/login", "destination": "/signin.html" },
     { "source": "/about", "destination": "/about.html" },
