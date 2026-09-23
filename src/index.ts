@@ -11,8 +11,13 @@ import { SqliteSessionStore } from './sessionStore.js'
 import { requireAuthApi, requireAuthPage, requireAdmin, verifyCsrfOrigin } from './middleware.js'
 import { db, getUserById, logSecurityEvent } from './db.js'
 
+import fs from 'fs'
+
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
+const publicDir = fs.existsSync(path.join(process.cwd(), 'public'))
+  ? path.join(process.cwd(), 'public')
+  : path.join(__dirname, '..', 'public')
 
 const app = express()
 const isProd = process.env.NODE_ENV === 'production'
@@ -215,14 +220,14 @@ app.get('/api/admin/audit-logs', requireAuthApi, requireAdmin, (req: Request, re
 // ==========================================
 // 8. STATIC ASSETS & PUBLIC PAGES
 // ==========================================
-app.use(express.static(path.join(__dirname, '..', 'public')))
+app.use(express.static(publicDir))
 
 // Sign-in page
 app.get('/signin', (req: Request, res: Response) => {
   if (req.session.userId) {
     return res.redirect('/dashboard')
   }
-  res.sendFile(path.join(__dirname, '..', 'public', 'signin.html'))
+  res.sendFile(path.join(publicDir, 'signin.html'))
 })
 
 app.get('/login', (req: Request, res: Response) => {
@@ -231,12 +236,12 @@ app.get('/login', (req: Request, res: Response) => {
 
 // Protected Dashboard page (Server-side route protection)
 app.get('/dashboard', requireAuthPage, (req: Request, res: Response) => {
-  res.sendFile(path.join(__dirname, '..', 'public', 'dashboard.html'))
+  res.sendFile(path.join(publicDir, 'dashboard.html'))
 })
 
 // Home route
 app.get('/', (req: Request, res: Response) => {
-  res.sendFile(path.join(__dirname, '..', 'public', 'index.html'))
+  res.sendFile(path.join(publicDir, 'index.html'))
 })
 
 // Dedicated marketing pages
@@ -259,19 +264,19 @@ const dedicatedPages = [
 
 dedicatedPages.forEach(page => {
   app.get(`/${page}`, (req: Request, res: Response) => {
-    res.sendFile(path.join(__dirname, '..', 'public', `${page}.html`))
+    res.sendFile(path.join(publicDir, `${page}.html`))
   })
 })
 
 // Aliases
 app.get('/paid', (req: Request, res: Response) => {
-  res.sendFile(path.join(__dirname, '..', 'public', 'premium.html'))
+  res.sendFile(path.join(publicDir, 'premium.html'))
 })
 app.get('/ai-chat', (req: Request, res: Response) => {
-  res.sendFile(path.join(__dirname, '..', 'public', 'chat.html'))
+  res.sendFile(path.join(publicDir, 'chat.html'))
 })
 app.get('/suggestions', (req: Request, res: Response) => {
-  res.sendFile(path.join(__dirname, '..', 'public', 'feedback.html'))
+  res.sendFile(path.join(publicDir, 'feedback.html'))
 })
 
 // Health check
