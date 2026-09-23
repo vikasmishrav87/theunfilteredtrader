@@ -6,10 +6,15 @@ import { fileURLToPath } from 'url'
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 
-// Ensure data directory exists
-const dataDir = path.join(__dirname, '..', 'data')
+import os from 'os'
+
+// Ensure data directory exists (use writable /tmp directory on Vercel serverless)
+const isVercel = Boolean(process.env.VERCEL)
+const dataDir = isVercel ? os.tmpdir() : path.join(process.cwd(), 'data')
 if (!fs.existsSync(dataDir)) {
-  fs.mkdirSync(dataDir, { recursive: true })
+  try {
+    fs.mkdirSync(dataDir, { recursive: true })
+  } catch {}
 }
 
 const dbPath = path.join(dataDir, 'tradershub.db')
