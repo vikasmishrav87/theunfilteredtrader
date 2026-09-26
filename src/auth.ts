@@ -40,6 +40,43 @@ export function getOAuthClient(req?: Request) {
   }
 }
 
+function createSignedState(returnTo: string = '/dashboard'): string {
+  const secret = process.env.SESSION_SECRET || 'state-signing-fallback-secret-at-least-32-chars'
+  const nonce = crypto.randomBytes(16).toString('hex')
+  const ts = Date.now()
+  const payload = Buffer.from(JSON.stringify({ nonce, returnTo, ts })).toString('base64url')
+  const sig = crypto.createHmac('sha256', secret).update(payload).digest('base64url')
+  return `${payload}.${sig}`
+}
+
+function verifySignedState(stateStr: string): { valid: boolean; returnTo: string } {
+  try {
+    const parts = stateStr.split('.')
+    if (parts.length !== 2) return { valid: false, returnTo: '/dashboard' }
+    const [payload, sig] = parts
+    const secret = process.env.SESSION_SECRET || 'state-signing-fallback-secret-at-least-32-chars'
+    const expectedSig = crypto.createHmac('sha256', secret).update(payload).digest('base64url')
+
+    const sigBuf = Buffer.from(sig)
+    const expectedBuf = Buffer.from(expectedSig)
+    if (sigBuf.length !== expectedBuf.length || !crypto.timingSafeEqual(sigBuf, expectedBuf)) {
+      return { valid: false, returnTo: '/dashboard' }
+    }
+
+    const data = JSON.parse(Buffer.from(payload, 'base64url').toString('utf8'))
+    // Expire state after 15 minutes
+    if (Date.now() - data.ts > 15 * 60 * 1000) {
+      return { valid: false, returnTo: '/dashboard' }
+    }
+    const safeReturnTo = typeof data.returnTo === 'string' && data.returnTo.startsWith('/')
+      ? data.returnTo
+      : '/dashboard'
+    return { valid: true, returnTo: safeReturnTo }
+  } catch {
+    return { valid: false, returnTo: '/dashboard' }
+  }
+}
+
 /**
  * 1. GET /auth/google
  * Initiates the Google OAuth 2.0 Authorization Code flow with CSRF state protection.
@@ -51,26 +88,29 @@ router.get('/google', (req: Request, res: Response) => {
     return res.status(500).json({ error: 'OAuth provider credentials not configured' })
   }
 
-  // Generate cryptographically random 256-bit state parameter for OAuth CSRF defense
-  const state = crypto.randomBytes(32).toString('hex')
-  req.session.oauthState = state
-
   // Store returnTo path if provided safely (prevent open redirect)
   const returnTo = typeof req.query.returnTo === 'string' && req.query.returnTo.startsWith('/')
     ? req.query.returnTo
     : '/dashboard'
+
+  // Generate cryptographically signed HMAC state parameter for OAuth CSRF defense
+  const state = createSignedState(returnTo)
+  req.session.oauthState = state
   req.session.oauthReturnTo = returnTo
 
-  // Construct official Google authorization URL
-  const authorizeUrl = client.generateAuthUrl({
-    access_type: 'online',
-    scope: ['openid', 'email', 'profile'],
-    state,
-    prompt: 'select_account',
-    redirect_uri: callbackUrl
-  })
+  // Explicit session save before redirect to prevent serverless race conditions
+  req.session.save(() => {
+    // Construct official Google authorization URL
+    const authorizeUrl = client.generateAuthUrl({
+      access_type: 'online',
+      scope: ['openid', 'email', 'profile'],
+      state,
+      prompt: 'select_account',
+      redirect_uri: callbackUrl
+    })
 
-  res.redirect(authorizeUrl)
+    res.redirect(authorizeUrl)
+  })
 })
 
 /**
@@ -94,8 +134,25 @@ router.get('/google/callback', async (req: Request, res: Response) => {
       return res.status(400).redirect('/signin?error=invalid_request')
     }
 
-    // CSRF Check: Validate state parameter matches session state
-    if (!state || typeof state !== 'string' || !req.session.oauthState || state !== req.session.oauthState) {
+    // CSRF Check: Validate state parameter (HMAC signed or session state match)
+    let isValidState = false
+    let targetUrl = '/dashboard'
+
+    if (state && typeof state === 'string') {
+      // 1. Try HMAC cryptographic signature (stateless / serverless proof)
+      const hmacResult = verifySignedState(state)
+      if (hmacResult.valid) {
+        isValidState = true
+        targetUrl = hmacResult.returnTo
+      }
+      // 2. Fallback to session check if matching
+      if (!isValidState && req.session.oauthState && req.session.oauthState === state) {
+        isValidState = true
+        targetUrl = req.session.oauthReturnTo || '/dashboard'
+      }
+    }
+
+    if (!isValidState) {
       logSecurityEvent('OAUTH_CSRF_STATE_MISMATCH', null, ip, userAgent, {
         providedState: state,
         expectedState: req.session.oauthState
@@ -106,7 +163,6 @@ router.get('/google/callback', async (req: Request, res: Response) => {
 
     // Clear state once validated to prevent replay
     delete req.session.oauthState
-    const targetUrl = req.session.oauthReturnTo || '/dashboard'
     delete req.session.oauthReturnTo
 
     // Server-to-server exchange: code for tokens
@@ -173,8 +229,10 @@ router.get('/google/callback', async (req: Request, res: Response) => {
         email: user.email
       })
 
-      // Redirect safely to intended dashboard
-      res.redirect(targetUrl)
+      // Persist session before redirect
+      req.session.save(() => {
+        res.redirect(targetUrl)
+      })
     })
   } catch (err: any) {
     console.error('OAuth Callback Error:', err.message || err)
