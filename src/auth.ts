@@ -19,22 +19,34 @@ declare module 'express-session' {
 
 const router = Router()
 
-// Validate environment variables on startup
-const clientId = process.env.GOOGLE_CLIENT_ID
-const clientSecret = process.env.GOOGLE_CLIENT_SECRET
-const callbackUrl = process.env.GOOGLE_CALLBACK_URL || 'http://localhost:3000/auth/google/callback'
+export function getOAuthClient(req?: Request) {
+  const currentClientId = process.env.GOOGLE_CLIENT_ID
+  const currentClientSecret = process.env.GOOGLE_CLIENT_SECRET
 
-if (!clientId || !clientSecret) {
-  console.warn('WARNING: GOOGLE_CLIENT_ID or GOOGLE_CLIENT_SECRET not configured. Google Sign-In will be disabled until set.')
+  let dynamicCallback = process.env.GOOGLE_CALLBACK_URL || 'http://localhost:3000/auth/google/callback'
+  if (req && !process.env.GOOGLE_CALLBACK_URL) {
+    const proto = (req.headers['x-forwarded-proto'] as string) || req.protocol || 'https'
+    const host = (req.headers['x-forwarded-host'] as string) || req.headers.host
+    if (host) {
+      dynamicCallback = `${proto}://${host}/auth/google/callback`
+    }
+  }
+
+  return {
+    clientId: currentClientId,
+    clientSecret: currentClientSecret,
+    callbackUrl: dynamicCallback,
+    client: new OAuth2Client(currentClientId, currentClientSecret, dynamicCallback)
+  }
 }
-
-export const googleClient = new OAuth2Client(clientId, clientSecret, callbackUrl)
 
 /**
  * 1. GET /auth/google
  * Initiates the Google OAuth 2.0 Authorization Code flow with CSRF state protection.
  */
 router.get('/google', (req: Request, res: Response) => {
+  const { clientId, clientSecret, callbackUrl, client } = getOAuthClient(req)
+
   if (!clientId || !clientSecret) {
     return res.status(500).json({ error: 'OAuth provider credentials not configured' })
   }
@@ -50,7 +62,7 @@ router.get('/google', (req: Request, res: Response) => {
   req.session.oauthReturnTo = returnTo
 
   // Construct official Google authorization URL
-  const authorizeUrl = googleClient.generateAuthUrl({
+  const authorizeUrl = client.generateAuthUrl({
     access_type: 'online',
     scope: ['openid', 'email', 'profile'],
     state,
@@ -98,7 +110,8 @@ router.get('/google/callback', async (req: Request, res: Response) => {
     delete req.session.oauthReturnTo
 
     // Server-to-server exchange: code for tokens
-    const { tokens } = await googleClient.getToken({
+    const { clientId, client, callbackUrl } = getOAuthClient(req)
+    const { tokens } = await client.getToken({
       code,
       redirect_uri: callbackUrl
     })
@@ -109,7 +122,7 @@ router.get('/google/callback', async (req: Request, res: Response) => {
     }
 
     // Cryptographically verify ID Token using google-auth-library
-    const ticket = await googleClient.verifyIdToken({
+    const ticket = await client.verifyIdToken({
       idToken: tokens.id_token,
       audience: clientId
     })
@@ -187,7 +200,8 @@ router.post('/google/verify', async (req: Request, res: Response) => {
     }
 
     // Cryptographic verification with google-auth-library
-    const ticket = await googleClient.verifyIdToken({
+    const { clientId, client } = getOAuthClient(req)
+    const ticket = await client.verifyIdToken({
       idToken: token,
       audience: clientId
     })
